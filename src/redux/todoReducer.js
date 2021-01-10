@@ -1,4 +1,4 @@
-import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL } from "../redux/actionType";
+import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL, FILTERDONE, FILTERNOTDONE, FILTERALL } from "../redux/actionType";
 
 const tasks = [
     {
@@ -48,6 +48,16 @@ export const todoReducer = (state = tasks, action) => {
             newTasks = [...state];
             newTasks = newTasks.map(el => el.id === action.payload ? { ...el, edit:!el.edit } : el)
             return newTasks
+        case FILTERDONE:
+                newTasks = [...state];
+                newTasks = newTasks.filter(el => el.isDone=== true)
+                return newTasks
+        case FILTERNOTDONE:
+                newTasks = [...state];
+                newTasks = newTasks.filter(el => el.isDone=== false)
+                return newTasks
+        case FILTERALL:
+            return state
         default:
             return state
     }
