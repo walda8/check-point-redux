@@ -1,4 +1,4 @@
-import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL } from "../redux/actionType";
+import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL, FILTERDONE, FILTERNOTDONE, FILTERALL } from "../redux/actionType";
 
 export function addTask(task) {
     return {
@@ -31,6 +31,27 @@ export function deleteTask(taskId) {
 export function cancel(taskId) {
     return {
         type: CANCEL,
+        payload: taskId
+    }
+}
+export function filterDone(taskId) {
+    return {
+        type: FILTERDONE,
+        payload: taskId
+    }
+}
+
+
+export function filterNotDone(taskId) {
+    return {
+        type: FILTERNOTDONE,
+        payload: taskId
+    }
+}
+
+export function filterAll(taskId) {
+    return {
+        type: FILTERALL,
         payload: taskId
     }
 }
