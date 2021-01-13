@@ -1,6 +1,7 @@
-import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL, FILTERDONE, FILTERNOTDONE, FILTERALL } from "../redux/actionType";
+import { ADDTASK, EDITTASK, COMPLETETASK, DELETETASK, CANCEL, FILTERDONE } from "../redux/actionType";
 
-const tasks = [
+const tasks ={ 
+    t:[
     {
         id: 1,
         description: "Get a job",
@@ -24,42 +25,46 @@ const tasks = [
         description: "Sleep well",
         isDone: false,
     }
-]
+],
+str:'ALL',
+}
 
 export const todoReducer = (state = tasks, action) => {
-    let newTasks;
+    
     switch (action.type) {
         case ADDTASK:
-            newTasks = [...state, action.payload]
-            return newTasks
+            return {...state, t:[...state.t, action.payload] }
         case EDITTASK:
-            newTasks = [...state];
-            newTasks = newTasks.map(el => el.id === action.payload.id ? { ...el, edit:!action.payload.edit, description: action.payload.description } : el)
-            return newTasks
+            
+            return {
+                ...state,
+                t:state.t.map(el => el.id === action.payload.id ? { ...el, edit:!action.payload.edit, description: action.payload.description } : el)
+            }
         case COMPLETETASK:
-            newTasks = [...state];
-            newTasks = newTasks.map(el => el.id === action.payload ? { ...el, isDone: !el.isDone } : el)
-            return newTasks
+            
+            return {
+                ...state,
+                t:state.t.map(el => el.id === action.payload ? { ...el, isDone: !el.isDone } : el)
+            }
         case DELETETASK:
-            newTasks = [...state];
-            newTasks = newTasks.filter(el => el.id !== action.payload)
-            return newTasks
+            
+            return {
+                ...state,
+                t:state.t.filter(el => el.id !== action.payload)
+            }
         case CANCEL:
-            newTasks = [...state];
-            newTasks = newTasks.map(el => el.id === action.payload ? { ...el, edit:!el.edit } : el)
-            return newTasks
+            
+            return {
+                ...state,
+                t:state.t.map(el => el.id === action.payload ? { ...el, edit:!el.edit } : el)
+            }
         case FILTERDONE:
-                newTasks = [...state];
-                newTasks = newTasks.filter(el => el.isDone=== true)
-                return newTasks
-        case FILTERNOTDONE:
-                newTasks = [...state];
-                newTasks = newTasks.filter(el => el.isDone=== false)
-                return newTasks
-        case FILTERALL:
-            return state
+          return      { ...state, 
+            str:action.payload}
+                
+       
+                
         default:
             return state
     }
 }
-
