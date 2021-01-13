@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { filterDone, filterNotDone, filterAll } from "../redux/todoAction";
+import { filterDone } from "../redux/todoAction";
 
 function FilterDone() {
     const dispatch = useDispatch();
@@ -8,15 +8,15 @@ function FilterDone() {
     return(
         <div>
             <label>
-            <input type="radio" name='foo'  onClick={()=>dispatch(filterDone())} />
+            <input type="radio" name='foo'  onClick={()=>dispatch(filterDone('DONE'))} />
             Done
             </label>
             <label>
-            <input type="radio" name='foo' onClick={()=>dispatch(filterNotDone())} />
+            <input type="radio" name='foo' onClick={()=>dispatch(filterDone('NOTDONE'))} />
             Not done
             </label>
             <label>
-            <input type="radio" name='foo' onClick={()=>dispatch(filterAll())} />
+            <input type="radio" name='foo' onClick={()=>dispatch(filterDone('ALL'))} />
             Show All
             </label>
         </div>
